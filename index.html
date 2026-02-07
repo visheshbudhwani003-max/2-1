@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Special Question for Siddhi 💍</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #1e293b, #0f172a, #000000);
+            color: white;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            touch-action: manipulation;
+        }
+
+        .handwritten { font-family: 'Dancing Script', cursive; }
+
+        .section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            height: 100vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+        }
+
+        .section.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Ring Box Animation */
+        .box-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .box-lid {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #475569;
+            border: 2px solid #94a3b8;
+            border-radius: 10px 10px 0 0;
+            top: 0;
+            transform-origin: bottom;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-bottom {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #334155;
+            border: 2px solid #94a3b8;
+            border-radius: 0 0 10px 10px;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .ring {
+            position: absolute;
+            font-size: 3rem;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: all 0.8s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 0;
+        }
+
+        .opened .box-lid { transform: rotateX(-110deg); }
+        .opened .ring { transform: translateX(-50%) scale(1.2) translateY(-40px); }
+
+        /* Floating Stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .celebrate-emoji {
+            position: absolute;
+            animation: flyAway 3s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flyAway {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="section-1" class="section active">
+        <h1 class="text-3xl font-bold text-blue-200 mb-4 handwritten">A Small Surprise...</h1>
+        <p class="text-blue-100/60 mb-12 text-sm">Tap the box to open it</p>
+        
+        <div class="box-container" id="ring-box" onclick="openBox()">
+            <div class="box-lid">
+                <div class="w-8 h-1 bg-gray-400 rounded-full opacity-30"></div>
+            </div>
+            <div class="ring">💍</div>
+            <div class="box-bottom"></div>
+        </div>
+        
+        <button id="next-btn-1" class="hidden mt-16 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-10 rounded-full shadow-lg transition-all" onclick="showNext(2)">
+            I have a question...
+        </button>
+    </div>
+
+    <div id="section-2" class="section">
+        <div class="mb-10 text-6xl">❤️</div>
+        <h2 class="text-3xl font-bold text-white handwritten mb-6">Siddhi,</h2>
+        <p class="text-xl text-blue-100 mb-12 px-6">
+            Will you promise to be my favorite person, today, tomorrow, and forever?
+        </p>
+        
+        <div class="flex flex-row space-x-6 w-full justify-center items-center relative h-20">
+            <button class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-xl z-50 transition-transform active:scale-95" onclick="celebrate()">
+                YES!
+            </button>
+            
+            <div id="no-wrapper" class="w-32 h-12 flex items-center justify-center">
+                <button id="no-btn" class="bg-gray-700 text-gray-300 font-bold py-2 px-8 rounded-full text-sm whitespace-nowrap transition-all duration-200" onmouseover="moveNo()" onclick="moveNo()" ontouchstart="moveNo()">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-3" class="section">
+        <div class="relative mb-8">
+            <div class="text-8xl">🥰</div>
+            <div class="absolute -top-2 -right-2 text-4xl animate-bounce">💍</div>
+        </div>
+        
+        <div class="bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-white/10 max-w-sm mx-auto shadow-2xl">
+            <h2 class="text-3xl font-bold handwritten text-blue-300 mb-4">You're Mine!</h2>
+            <p class="text-sm leading-relaxed text-blue-50/80 mb-6 italic">
+                Thank you for saying yes (even if I made it hard to say no!). 
+                From the moment you walked into my life, everything felt warmer, brighter, and more real. 
+                I don’t know what the future holds, but I know I want every version of it with you. 
+                So today, and every day after—will you keep choosing me the way I choose you?. Happy Propose Day, my love.
+            </p>
+            <div class="flex justify-center space-x-2 text-2xl">
+                <span>🌊</span><span>✨</span><span>🌙</span>
+            </div>
+        </div>
+        
+        <p class="mt-12 text-[10px] opacity-30 uppercase tracking-[0.3em]">Locked in for 2026 and beyond</p>
+    </div>
+
+    <script>
+        // Create Background Stars
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 'px';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+        function showNext(num) {
+            document.querySelectorAll('.section').forEach(s => {
+                s.classList.remove('active');
+                setTimeout(() => s.style.display = 'none', 500);
+            });
+            
+            setTimeout(() => {
+                const nextSec = document.getElementById('section-' + num);
+                nextSec.style.display = 'flex';
+                setTimeout(() => nextSec.classList.add('active'), 50);
+            }, 550);
+        }
+
+        // Section 1: Ring Box
+        function openBox() {
+            document.getElementById('ring-box').classList.add('opened');
+            setTimeout(() => {
+                document.getElementById('next-btn-1').classList.remove('hidden');
+            }, 1000);
+        }
+
+        // Section 2: Chasing Button - UPDATED
+        function moveNo() {
+            const btn = document.getElementById('no-btn');
+            
+            // Randomize position across the viewport
+            const x = Math.random() * (window.innerWidth - btn.clientWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - btn.clientHeight - 40) + 20;
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.zIndex = "1000";
+        }
+
+        // Final Celebration
+        function celebrate() {
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'celebrate-emoji';
+                    emoji.innerHTML = ['💖', '💍', '✨', '🌸', '❤️'][Math.floor(Math.random() * 5)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.bottom = '-50px';
+                    emoji.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+
+            setTimeout(() => showNext(3), 500);
+        }
+
+        // Prevent Context Menu
+        window.oncontextmenu = function() { return false; }
+    </script>
+</body>
+</html>
